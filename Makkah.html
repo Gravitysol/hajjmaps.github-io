@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>Makkah tul Mukarma</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/Makkah_Hotels_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[21.382500900146397,39.77012497554279],[21.45537073881127,39.91247850795316]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://zameenlocator.com">Zameen Locator</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 23
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        map.createPane('pane_OSMStandard_1');
+        map.getPane('pane_OSMStandard_1').style.zIndex = 401;
+        var layer_OSMStandard_1 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_1',
+            opacity: 1.0,
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_1;
+        map.addLayer(layer_OSMStandard_1);
+        map.createPane('pane_GoogleRoads_2');
+        map.getPane('pane_GoogleRoads_2').style.zIndex = 402;
+        var layer_GoogleRoads_2 = L.tileLayer('http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleRoads_2',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 25
+        });
+        layer_GoogleRoads_2;
+        map.addLayer(layer_GoogleRoads_2);
+        map.createPane('pane_MakkahMap_3');
+        map.getPane('pane_MakkahMap_3').style.zIndex = 403;
+        var layer_MakkahMap_3 = L.tileLayer('https://api.mapbox.com/styles/v1/adminjaxat/cldxfxd84001b01qjvkvnrk2y/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWRtaW5qYXhhdCIsImEiOiJjazNoOXo2OGUwN3l2M2VwaDM5ZWwxZmJwIn0.Kf_E8Ddvvz04O-l6ItEmVQ', {
+            pane: 'pane_MakkahMap_3',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 24
+        });
+        layer_MakkahMap_3;
+        map.addLayer(layer_MakkahMap_3);
+        map.createPane('pane_Haram_Doors_4');
+        map.getPane('pane_Haram_Doors_4').style.zIndex = 404;
+        var img_Haram_Doors_4 = 'data/Haram_Doors_4.png';
+        var img_bounds_Haram_Doors_4 = [[21.418797148782144,39.82037714909165],[21.42747212957558,39.83349489476347]];
+        var layer_Haram_Doors_4 = new L.imageOverlay(img_Haram_Doors_4,
+                                              img_bounds_Haram_Doors_4,
+                                              {pane: 'pane_Haram_Doors_4'});
+        bounds_group.addLayer(layer_Haram_Doors_4);
+        map.addLayer(layer_Haram_Doors_4);
+        function pop_Makkah_Hotels_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">original_H</th>\
+                        <td>' + (feature.properties['original_H'] !== null ? autolinker.link(feature.properties['original_H'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lat</th>\
+                        <td>' + (feature.properties['lat'] !== null ? autolinker.link(feature.properties['lat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">lon</th>\
+                        <td>' + (feature.properties['lon'] !== null ? autolinker.link(feature.properties['lon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Makkah_Hotels_5_0() {
+            return {
+                pane: 'pane_Makkah_Hotels_5',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,166,178,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Makkah_Hotels_5');
+        map.getPane('pane_Makkah_Hotels_5').style.zIndex = 405;
+        map.getPane('pane_Makkah_Hotels_5').style['mix-blend-mode'] = 'normal';
+        var layer_Makkah_Hotels_5 = new L.geoJson(json_Makkah_Hotels_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Makkah_Hotels_5',
+            layerName: 'layer_Makkah_Hotels_5',
+            pane: 'pane_Makkah_Hotels_5',
+            onEachFeature: pop_Makkah_Hotels_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Makkah_Hotels_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Makkah_Hotels_5);
+        map.addLayer(layer_Makkah_Hotels_5);
+            var title = new L.Control();
+            title.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            title.update = function () {
+                this._div.innerHTML = '<h2>Makkah tul Mukarma</h2>';
+            };
+            title.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{"Haram_Doors": layer_Haram_Doors_4,"Makkah Map": layer_MakkahMap_3,"Google Roads": layer_GoogleRoads_2,"OSM Standard": layer_OSMStandard_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_Makkah_Hotels_5,
+            initial: false,
+            hideMarkerOnCollapse: false,
+            zoom: 18,
+            propertyName: 'original_H',
+            marker:{
+            icon: new L.Icon({iconUrl:'images/ZL.png',iconSize: [40,60], iconAnchor:[15,30]}),
+                circle: {
+                    radius: 30,
+                    color: '#0a0',
+                    opacity: 0,
+                    fillOpacity: 0
+
+
+                }
+            }
+        }));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        </script>
+    </body>
+</html>
